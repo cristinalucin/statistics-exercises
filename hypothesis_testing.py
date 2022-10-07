@@ -288,3 +288,166 @@ if (pval / 2 < alpha) and (tstat > 0):
     print("we can reject the null hypothesis: gas mileage of manual cars is greater than gas mileage of auto cars")
 else:
     print('We fail to reject the null hypothesis, gas mileage of manual cars is less than or equal to gas mileage of auto cars')
+    
+##
+# 
+# CORRELATION EXERCISES
+Answer with the type of stats test you would use (assume normal distribution):
+Is there a relationship between the length of your arm and the length of your foot?
+  - Pearson's R
+Do guys and gals quit their jobs at the same rate?
+   - T-Test
+Does the length of time of the lecture correlate with a students grade?
+  - Pearson's R
+  
+#Use the telco_churn data.
+#Does tenure correlate with monthly charges?
+#Total charges?
+#What happens if you control for phone and internet service?
+# read from the SQL database
+​
+from env import host, user, password
+​
+url = f'mysql+pymysql://{user}:{password}@{host}/telco_churn'
+sql = '''
+SELECT
+    *
+FROM customers
+'''
+​
+telco_churn = pd.read_sql(sql, url)
+telco_churn.head()
+Does tenure correlate with monthly charges?
+customer_tenure = telco_churn.tenure
+customer_monthly = telco_churn.monthly_charges
+# State Hypotheses
+#H_0: There is no linear relationship between customer tenure and customer monthly charges.
+#H_a: There is a linear relationship between customer tenure and customer monthly charges.
+# Set Variables
+x = customer_tenure
+y = customer_monthly
+alpha = 0.05
+r, p = stats.pearsonr(x, y)
+print('r =', r)
+print('p =', p)
+# appears to be weak moerate positive correlation
+Total Charges?
+# State Hypotheses
+#H_0: There is no linear relationship between customer tenure and customer total charges.
+#H_a: There is a linear relationship between customer tenure and customer total charges.
+telco_churn_fix.plot.scatter(y='total_charges', x = 'tenure')
+
+#Fix this:
+#Class example replaced blank values with nan values, then dropped nan values from dataset
+telco_churn_fix = telco_churn[telco_churn.tenure != 0]
+telco_churn_fix['total_charges'] = telco_churn_fix['total_charges'].astype(float)
+telco_churn_fix.dtypes
+
+# Set Variables
+x = telco_churn_fix.tenure
+y = telco_churn_fix.total_charges
+alpha = 0.05
+r, p = stats.pearsonr(x, y)
+print('r =', r)
+print('p =', p)
+What happens if you control for phone and internet service?
+sns.relplot(data=telco_churn_fix, y='total_charges', x='tenure', col='phone_service')
+sns.relplot(data=telco_churn_fix, y='total_charges', x='tenure', col='internet_service_type_id')
+Use the employees database. Is there a relationship between how long an employee has been with the company and their salary? Is there a relationship between how long an employee has been with the company and the number of titles they have had?
+from env import host, user, password
+​
+url = f'mysql+pymysql://{user}:{password}@{host}/employees'
+sql = '''
+SELECT
+    *
+FROM salaries
+WHERE salaries.to_date = '9999-01-01'
+'''
+​
+salaries = pd.read_sql(sql, url)
+salaries.head()
+# State Hypotheses
+#H_0: There is no linear relationship between hire date and salary.
+#H_a: There is a linear relationship between hire date and salary.
+#Visualize Data
+salaries.from_date.hist()
+#salaries.salary.hist()
+#Convert from object into date time
+salaries["from_date"]= pd.to_datetime(salaries["from_date"])
+salaries.from_date = pd.to_numeric(salaries.from_date)
+salaries.head()
+# Prepare variables
+x = salaries.from_date
+y = salaries.salary
+alpha = .05
+r, p = stats.pearsonr(x, y)
+print('r =', r)
+print('p =', p)
+#
+#Conclusion
+# there appears to be no correlation between hire date and salary
+Is there a relationship between how long an employee has been with the company and the number of titles they have had?
+sql = '''
+SELECT
+    *
+FROM titles t 
+'''
+​
+titles = pd.read_sql(sql, url)
+titles.head()
+#Convert from object into date time
+titles["from_date"]= pd.to_datetime(titles["from_date"])
+titles.from_date = pd.to_numeric(titles.from_date)
+# State Hypotheses
+#H_0: There is no linear relationship between hire date and number of titles.
+#H_a: There is a linear relationship between hire date and number of titles.
+#what are our variable types
+titles.dtypes
+#Create new column with number of titles
+# Create the new column based on an existing column.
+​
+# Using groupby() and count()
+#title_count = titles.groupby(['emp_no'])['emp_no'].count()
+#title_count
+​
+#Remove duplicate emp_no from data
+#emp_no_unique = titles.emp_no.unique()
+#
+#Create dataframe with new data
+#title_count.dtype
+#Turn emp_no_unique into a series
+#emp_no_unique = pd.Series(emp_no_unique) 
+#emp_no_unique
+title_count = pd.DataFrame(title_count)
+title_count.columns = ['emp_no', 'total_titles']
+#Visualize the data
+#titles.from_date.hist()
+titles.title.hist()
+# Prepare variables
+x = titles.title
+y = titles.from_date
+alpha = .05
+r, p = stats.pearsonr(x, y)
+print('r =', r)
+print('p =', p)
+from pydataset import data
+sleepstudy = data('sleepstudy')
+sleepstudy.head()
+Is there a relationship between days and reaction time?
+# State Hypotheses
+#H_0: There is no linear relationship between days and reaction time
+#H_a: There is a linear relationship between days and reaction time
+sleepstudy.Days
+#Visualize Data
+#sleepstudy.Days.hist()
+sleepstudy.Reaction.hist()
+# Prepare variables
+x = sleepstudy.Days
+y = sleepstudy.Reaction
+alpha = .05
+r, p = stats.pearsonr(x, y)
+print('r =', r)
+print('p =', p)
+#Conclusion
+#There is a moderately strong positive correlation between days and reaction time.
+sns.lmplot(data=sleepstudy, y='Reaction', x='Days')
