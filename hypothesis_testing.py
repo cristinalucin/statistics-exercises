@@ -64,55 +64,55 @@ import matplotlib.pyplot as plt
 ### For each of the following questions, formulate a null and alternative hypothesis (be as specific as you can be), then give an example of what a true positive, true negative, type I and type II errors would look like. Note that some of the questions are intentionally phrased in a vague way. It is your job to reword these as more precise questions that could be tested.
 
 #### 1. Has the network latency gone up since we switched internet service providers?
-- ISP 1 vs ISP 2 (discrete, boolean, isp_switch)
-- Network latency (continuous, net_latency)
-- Comparison of means of two groups (t-test)
+# - ISP 1 vs ISP 2 (discrete, boolean, isp_switch)
+# - Network latency (continuous, net_latency)
+# - Comparison of means of two groups (t-test)
 
-H{0} : latency (mean a) is less than or equal latency b(mean)
+# H{0} : latency (mean a) is less than or equal latency b(mean)
 
-H{a}: latency (mean a) is greater than latency (mean b)
+# H{a}: latency (mean a) is greater than latency (mean b)
 
-True Positive: Reject H{0} when H{0} is false (latency went up and we said it did)
+# True Positive: Reject H{0} when H{0} is false (latency went up and we said it did)
 
-True Negative: Accept H{0} when H{0} is true (fail to reject H{0} (latency didnt go up and we said it didnt)
+# True Negative: Accept H{0} when H{0} is true (fail to reject H{0} (latency didnt go up and we said it didnt)
 
-Type 1 error: Latency did not go up with ISP switch, but we said it did
+# Type 1 error: Latency did not go up with ISP switch, but we said it did
 
-Type 2 error: Latency did go up with ISP switch, but we said it didnt
+# Type 2 error: Latency did go up with ISP switch, but we said it didnt
 
 #### 2. Is the website redesign any good?
 
-- Question: Are we getting more traffic on the website since the website redesign?
-- Variables: Website redesign (web_redesign),discrete, boolean ('True' or 'False) AND web traffic hits (traffic_rate), continuous variable
-- H{0}: There is no difference in website traffic since the website redesign
-- H{a}: There is a significant difference in website trafic since the redesign
+# - Question: Are we getting more traffic on the website since the website redesign?
+# - Variables: Website redesign (web_redesign),discrete, boolean ('True' or 'False) AND web traffic hits (traffic_rate), continuous variable
+# - H{0}: There is no difference in website traffic since the website redesign
+# - H{a}: There is a significant difference in website trafic since the redesign
 
-True Positive: Reject H{0} when H{0} is false (Traffic is greater than before and after website redesign and we said it would be greater)
+# True Positive: Reject H{0} when H{0} is false (Traffic is greater than before and after website redesign and we said it would be greater)
 
-True Negative: Accept H{0} when H{0} is true (fail to reject H{0}) (Traffic is less than or equal to the rate when website was redesigned, and we said it would be less than or equal)
+# True Negative: Accept H{0} when H{0} is true (fail to reject H{0}) (Traffic is less than or equal to the rate when website was redesigned, and we said it would be less than or equal)
 
-Type 1 Error: There is no significant increase in website traffic since the redesign, but we conclude that there is a significant increase in website traffic with website redesign (we reject the null)
+# Type 1 Error: There is no significant increase in website traffic since the redesign, but we conclude that there is a significant increase in website traffic with website redesign (we reject the null)
 
-Type 2 Error: There is a significant increase in website traffic since the redesign, but we conclude that the traffic level is less than or the same as before (we accept the null)
+# Type 2 Error: There is a significant increase in website traffic since the redesign, but we conclude that the traffic level is less than or the same as before (we accept the null)
 
 
 
 
 #### 3.  Is our television ad driving more sales?
-Question: Did the television add increase sales for the company?
+# Question: Did the television add increase sales for the company?
 
-Variables: TV_ad (discrete/categorical), boolean (True, False); Sales figures ('sales'), continuous variable
+# Variables: TV_ad (discrete/categorical), boolean (True, False); Sales figures ('sales'), continuous variable
 
-H{0}: The introduction of a TV add had no significant impact on sales (sales2 <= sales 1)
-H{a}: The introduction of a TV add had a significant impact on sales (sales 2 > sales 1)
+# H{0}: The introduction of a TV add had no significant impact on sales (sales2 <= sales 1)
+# H{a}: The introduction of a TV add had a significant impact on sales (sales 2 > sales 1)
 
-True Positive: Reject H{0} when H{0} is false (The TV add drove more sales, and we said the TV add drove more sales)
+# True Positive: Reject H{0} when H{0} is false (The TV add drove more sales, and we said the TV add drove more sales)
 
-True Negative: Accept H{0} when H{0} is true (The TV add did not drive more sales, and we agreed with (H0) that there was no signficant increase in sales with the new TV add)
+# True Negative: Accept H{0} when H{0} is true (The TV add did not drive more sales, and we agreed with (H0) that there was no signficant increase in sales with the new TV add)
 
-Type 1 error: There was no increase in sales with the new TV ad, but we conclude there is a significant increase in sales from the TV ad (we rejected the null)
+# Type 1 error: There was no increase in sales with the new TV ad, but we conclude there is a significant increase in sales from the TV ad (we rejected the null)
 
-Type 2 error: There was a significant increase in sales with the new TV ad, but we conclude that there is no significant increase in sales (we accepted the null)
+# Type 2 error: There was a significant increase in sales with the new TV ad, but we conclude that there is no significant increase in sales (we accepted the null)
 
 
 
@@ -451,3 +451,156 @@ print('p =', p)
 #Conclusion
 #There is a moderately strong positive correlation between days and reaction time.
 sns.lmplot(data=sleepstudy, y='Reaction', x='Days')
+
+
+##Chi-Squared Testing Exercises
+
+# 1. Answer with the type of stats test you would use (assume normal distribution):
+# Do students get better test grades if they have a rubber duck on their desk?
+# T-test
+# Does smoking affect when or not someone has lung cancer?
+# Chi-squared
+# Is gender independent of a person’s blood type?
+# Chi-squared
+# A farming company wants to know if a new fertilizer has improved crop yield or not?
+# T-Test
+# Does the length of time of the lecture correlate with a students grade?
+# Pearson's R
+# Do people with dogs live in apartments more than people with cats?
+# Chi-Squared
+
+# 2. Use the following contingency table to help answer the question of whether using a macbook and being a 
+# codeup student are independent of each other.
+
+#Create dataframe with data
+macbook = pd.DataFrame({'Codeup_Student': [49, 1], 'Not_Codeup_Student' : [20, 30]}, index=['Uses_Mac', 'No_Mac'])
+macbook
+
+# Form hypotheses:
+#H_0: Using a macbook and being a codeup student are independent of each other
+#H_a: Using a macbook and being a codeup student are dependent on each other
+
+#Compute test statistic
+chi2, p, degf, expected = stats.chi2_contingency(macbook)
+chi2, p, degf, expected
+
+#Conclusion
+if p < 0.05:
+    print('Reject the null hypothesis')
+else:
+    print('Fail to reject the null hypothesis')
+    
+#### 3. Choose another 2 categorical variables from the mpg dataset and perform a chi2 contingency table test with them.
+# Be sure to state your null and alternative hypotheses.
+
+mpg = data('mpg')
+#data('mpg', show_doc = True)
+
+# Form hypotheses:
+
+#H_0: Vehicle drive is independent from vehicle transmission type
+
+#H_a: Vehicle drive is dependent on vehicle transmission type
+
+#Find categorical variables
+mpg.nunique()
+#Year, drive, fuel, cylinder, class
+
+#Choosing drive(front, 4wd, rwd)
+mpg.drv.value_counts()
+
+#Choosing transmission
+mpg['trans'] = np.where(mpg.trans.str.contains('auto'), 'auto', 'manual')
+mpg.head()
+
+#Make Crosstab
+mpg_observed = pd.crosstab(mpg.trans, mpg.drv)
+mpg_observed
+
+# Compute test statistic
+chi2, p, df, mpg_expected = stats.chi2_contingency(mpg_observed)
+chi2, p, df, mpg_expected
+
+#Conclusion
+if p < 0.05:
+    print('Reject the null hypothesis')
+else:
+    print('Fail to reject the null hypothesis')
+
+#We failed to reject the null hypothesis
+
+#### 4. Use the data from the employees database to answer these questions:
+
+#### Is an employee's gender independent of whether an employee works in sales
+## or marketing? (only look at current employees)
+
+# read from the SQL database
+from env import host, user, password
+url = f'mysql+pymysql://{user}:{password}@{host}/employees'
+
+sql = '''
+SELECT e.emp_no, e.gender, d.dept_name, dm.dept_no
+FROM employees e
+JOIN dept_emp de USING(emp_no)
+JOIN departments d USING(dept_no)
+LEFT JOIN dept_manager dm USING(emp_no)
+WHERE de.to_date > NOW()
+'''
+
+employees = pd.read_sql(sql, url)
+employees.head()
+
+#Form hypotheses:
+
+#H_0: Employee gender is independent from employee department
+
+#H_a: Employee gender is dependent on employee department
+
+#Take Sales and Marketing from employees table
+emp_departments = employees[(employees.dept_name == 'Sales') | (employees.dept_name == 'Marketing')]
+emp_departments.head()
+
+#Make Crosstab
+emp_observed = pd.crosstab(employees.gender, emp_departments.dept_name)
+emp_observed
+
+# Compute test statistic
+chi2, p, df, emp_expected = stats.chi2_contingency(emp_observed)
+chi2, p, df, emp_expected
+
+#Conclusion
+if p < 0.05:
+    print('Reject the null hypothesis: There is a relationship between employee gender and department')
+else:
+    print('Fail to reject the null hypothesis: there appears to be no relationship between employee gender and whether or not they work in marketing or sales')
+
+#We failed the null
+
+#### Is an employee's gender independent of whether or not they are or have been a manager?
+
+#Form hypotheses:
+
+#H_0: Employee gender is independent from whether or not they have been a manager
+
+#H_a: There is an association between gender and whether a person has been a manager
+
+employees['was_manager'] = np.where(employees.dept_no.isnull(), False, True)
+employees.head()
+len(employees[employees.was_manager == True])
+
+#Make Crosstab
+manager_observed = pd.crosstab(employees.gender, employees.was_manager)
+manager_observed
+
+# Compute test statistic
+chi2, p, df, manager_expected = stats.chi2_contingency(manager_observed)
+chi2, p, df, manager_expected
+
+#Conclusion
+if p < 0.05:
+    print('Reject the null hypothesis: There is a relationship between employee gender and management position')
+else:
+    print('Fail to reject the null hypothesis: there appears to be no relationship between employee gender and management position')
+    
+#We failed to reject the null hypothesis
+
